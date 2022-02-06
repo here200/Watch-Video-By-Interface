@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>VIP视频解析</title>
+  <style>
+    /* 设置整个网页的背景颜色 */
+    body {
+      background-color: #505050;
+    }
+    /* 设置搜索框，让其垂直居中 */
+    .search {
+      margin-top: 50px;
+      text-align: center;
+    }
+    .search input {
+      width: 500px;
+      height: 22px;
+      outline: none;
+    }
+    .search button {
+      vertical-align: center;
+    }
+    /* 设置播放器的宽高和背景色 */
+    iframe {
+      display: block;
+      width: 1000px;
+      height: 500px;
+      margin: 30px auto;
+      background-color: #dddddd;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 保存输入地址，并且可以清空地址栏 -->
+<div class="search">
+  <input type="text" id="text">
+  <button type="button" onclick="play()">播放</button>
+  <button type="button" onclick="reset()">清空</button>
+</div>
+
+<iframe src="" frameborder="0" id="player" allowfullscreen allowtransparency></iframe>
+
+<script>
+  // 获取输入框对象
+  let input = document.getElementById("text")
+  // 绑定 点击事件
+  input.addEventListener('keyup', function (event) {
+    event.preventDefault()
+    if (event.keyCode === 13) {
+      play()
+    }
+  })
+  // 当点击播放时
+  function play() {
+    // 获取输入框对象
+    let input = document.getElementById("text")
+    // 提取输入框内容并拼接成合适的url
+    let url = 'http://17kyun.com/api.php?url=' + input.value
+    // 修改iframe的src
+    let player = document.getElementById('player')
+    player.src = url
+  }
+  // 当点击清空时
+  function reset() {
+    // 获取输入框对象
+    let input = document.getElementById("text")
+    // 清空输入框
+    input.value = ''
+  }
+</script>
+
+</body>
+</html>
