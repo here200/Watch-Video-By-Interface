@@ -33,7 +33,7 @@
 </head>
 <body>
 
-<!-- 保存输入地址，并且可以清空地址栏 -->
+<!--搜索栏-->
 <div class="search">
   <input type="text" id="text">
   <button type="button" onclick="play()">播放</button>
@@ -43,15 +43,42 @@
 <iframe src="" frameborder="0" id="player" allowfullscreen allowtransparency></iframe>
 
 <script>
-  // 获取输入框对象
-  let input = document.getElementById("text")
-  // 绑定 点击事件
-  input.addEventListener('keyup', function (event) {
-    event.preventDefault()
-    if (event.keyCode === 13) {
-      play()
-    }
-  })
+  // 通过 enter 键 即可解析
+      // 获取输入框对象
+      let input = document.getElementById("text")
+      // 绑定 点击事件
+      input.addEventListener('keyup', function (event) {
+        event.preventDefault()
+        if (event.keyCode === 13) {
+          play()
+        }
+      })
+
+  // 提取?后面的url的值，并进行解析动作,如果不存在，则不进行解析
+      // 获取网址的url
+      let tmp = location.search
+      // 提取url=后面的网址
+      let href = tmp.substr(tmp.indexOf('?'))
+      let reg = "url=([^&]*)"
+      let url = href.match(reg)[0]
+      if (url !== null && url.length > 4) {
+        url =  url.substr(url.indexOf('url=') + 4)
+        // 解析该网址
+        url_parse(url)
+      }
+
+      // 进行url的解析
+      function url_parse(local_url) {
+        // 拼接成合适的url
+        let url = 'http://17kyun.com/api.php?url=' + local_url
+        // 修改iframe的src
+        let player = document.getElementById('player')
+        player.src = url
+        // 获取输入框对象，并将url填入该对象中
+        let input = document.getElementById("text")
+        input.value = local_url
+      }
+
   // 当点击播放时
   function play() {
     // 获取输入框对象
