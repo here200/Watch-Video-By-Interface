@@ -7,6 +7,7 @@
     /* 设置整个网页的背景颜色 */
     body {
       background-color: #505050;
+      font-size: 15px;
     }
     /* 设置搜索框，让其垂直居中 */
     .search {
@@ -15,7 +16,7 @@
     }
     .search input {
       width: 500px;
-      height: 22px;
+      height: 24px;
       outline: none;
     }
     .search button {
@@ -29,6 +30,11 @@
       margin: 30px auto;
       background-color: #dddddd;
     }
+
+    p {
+      color: #000;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -36,25 +42,40 @@
 <!--搜索栏-->
 <div class="search">
   <input type="text" id="text">
-  <button type="button" onclick="play()">播放</button>
+  <button type="button" onclick="input_parse()">播放</button>
   <button type="button" onclick="reset()">清空</button>
 </div>
 
 <iframe src="" frameborder="0" id="player" allowfullscreen allowtransparency></iframe>
+<p>在搜索栏输入地址后，按回车键即可解析，按Esc可以清空地址栏</p>
 
 <script>
-  // 通过 enter 键 即可解析
+  // 接口
+  let parse_url = 'https://okjx.cc/?url='
+
+  function play(url) {
+    // 获取iframe对象
+    let player = document.getElementById('player')
+    // 修改src的值为解析地址
+    player.src = url
+  }
+
+  // 按键控制
+    // 在选中输入框的情况下，按Enter触发解析动作，按Esc键触发输入内容清空动作。
       // 获取输入框对象
       let input = document.getElementById("text")
       // 绑定 点击事件
       input.addEventListener('keyup', function (event) {
         event.preventDefault()
         if (event.keyCode === 13) {
-          play()
+          input_parse()
+        } else if (event.keyCode === 27) {
+          reset()
         }
       })
 
-  // 提取?后面的url的值，并进行解析动作,如果不存在，则不进行解析
+  // 通过地址栏解析
+    // 提取?后面的url的值，并进行解析动作,如果不存在，则不进行解析
       // 获取网址的url
       let tmp = location.search
       // 提取url=后面的网址
@@ -64,35 +85,28 @@
       if (url !== null && url.length > 4) {
         url =  url.substr(url.indexOf('url=') + 4)
         // 解析该网址
-        url_parse(url)
+        location_parse(url)
       }
 
       // 进行url的解析
-      function url_parse(local_url) {
+      function location_parse(url) {
         // 拼接成合适的url
-        let url = 'http://17kyun.com/api.php?url=' + local_url
-        // 修改iframe的src
-        let player = document.getElementById('player')
-        player.src = url
-        // 获取输入框对象，并将url填入该对象中
-        let input = document.getElementById("text")
-        input.value = local_url
+        let tmp = parse_url + url
+        // 播放视频
+        play(tmp)
+        // 把url填入搜索栏中
+        input.value = url
       }
 
   // 当点击播放时
-  function play() {
-    // 获取输入框对象
-    let input = document.getElementById("text")
-    // 提取输入框内容并拼接成合适的url
-    let url = 'http://17kyun.com/api.php?url=' + input.value
-    // 修改iframe的src
-    let player = document.getElementById('player')
-    player.src = url
+  function input_parse() {
+    let url = parse_url + input.value
+    // 播放视频
+    play(url)
   }
+
   // 当点击清空时
   function reset() {
-    // 获取输入框对象
-    let input = document.getElementById("text")
     // 清空输入框
     input.value = ''
   }
