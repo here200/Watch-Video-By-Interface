@@ -52,27 +52,39 @@
 <script>
   // 接口
   let parse_url = 'https://okjx.cc/?url='
+  // 获取输入框对象
+  let input = document.getElementById("text")
+  // 获取iframe对象
+  let player = document.getElementById('player')
 
   function play(url) {
-    // 获取iframe对象
-    let player = document.getElementById('player')
     // 修改src的值为解析地址
     player.src = url
   }
 
+  // 当点击播放时
+  function input_parse() {
+    let url = parse_url + input.value
+    // 播放视频
+    play(url)
+  }
+
+  // 当点击清空时
+  function reset() {
+    // 清空输入框
+    input.value = ''
+  }
+
   // 按键控制
     // 在选中输入框的情况下，按Enter触发解析动作，按Esc键触发输入内容清空动作。
-      // 获取输入框对象
-      let input = document.getElementById("text")
-      // 绑定 点击事件
-      input.addEventListener('keyup', function (event) {
-        event.preventDefault()
-        if (event.keyCode === 13) {
-          input_parse()
-        } else if (event.keyCode === 27) {
-          reset()
-        }
-      })
+    input.addEventListener('keyup', function (event) {
+      event.preventDefault()
+      if (event.keyCode === 13) {
+        input_parse()
+      } else if (event.keyCode === 27) {
+        reset()
+      }
+    })
 
   // 通过地址栏解析
     // 提取?后面的url的值，并进行解析动作,如果不存在，则不进行解析
@@ -97,19 +109,6 @@
         // 把url填入搜索栏中
         input.value = url
       }
-
-  // 当点击播放时
-  function input_parse() {
-    let url = parse_url + input.value
-    // 播放视频
-    play(url)
-  }
-
-  // 当点击清空时
-  function reset() {
-    // 清空输入框
-    input.value = ''
-  }
 </script>
 
 </body>
