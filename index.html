@@ -28,6 +28,7 @@
       border-radius: 5px;
       vertical-align: center;
       cursor: pointer;
+      outline: none;
     }
 
     /* 设置播放器的宽高和背景色 */
@@ -104,10 +105,28 @@
     // 在选中输入框的情况下，按Enter触发解析动作，按Esc键触发输入内容清空动作。
     input.addEventListener('keyup', function (event) {
       event.preventDefault()
-      if (event.keyCode === 13) {
-        input_parse()
-      } else if (event.keyCode === 27) {
-        reset()
+
+      switch (event.keyCode) {
+        case 13: { // 回车键
+          input_parse()
+          break
+        }
+        case 27: { // ESC键
+          reset()
+          break
+        }
+      }
+    })
+
+    // 全局的按键控制
+    document.addEventListener('keyup', function (event) {
+      event.preventDefault()
+
+      switch (event.keyCode) {
+          case 73: { // I键
+            input.focus()
+            break
+          }
       }
     })
 
