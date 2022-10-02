@@ -118,18 +118,6 @@
       }
     })
 
-    // 全局的按键控制
-    window.addEventListener('keyup', function (event) {
-      event.preventDefault()
-
-      switch (event.keyCode) {
-          case 81: { // Q键
-            input.focus()
-            break
-          }
-      }
-    })
-
   // 通过地址栏解析
     // 提取?后面的url的值，并进行解析动作,如果不存在，则不进行解析
       // 获取网址的url
