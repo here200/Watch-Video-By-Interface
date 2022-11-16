@@ -74,36 +74,34 @@
   /*
   *  BL解析： https://svip.bljiex.cc/?v=
   *  云解析： https://jx.iztyy.com/svip/?url=
-  *   MAQQ:   https://player.maqq.cn/?url=
-  * */
+  *   MAQQ:  https://player.maqq.cn/?url=
+  **/
+
   // 接口
   let parse_url = 'https://svip.bljiex.cc/?v='
+
   // 获取输入框对象
   const input = document.getElementById("text")
   // 获取iframe对象
   const player = document.getElementById('player')
 
   function play(url) {
-    // 修改src的值为解析地址
-    player.src = url
+    player.src = parse_url + url
   }
 
   // 当点击播放时
   function input_parse() {
-    const url = parse_url + input.value
-    // 播放视频
-    play(url)
+    play(input.value)
   }
 
   // 当点击清空时
   function reset() {
-    // 清空输入框
     input.value = ''
   }
 
-  // 按键控制
+  (function () {
     // 在选中输入框的情况下，按Enter触发解析动作，按Esc键触发输入内容清空动作。
-    input.addEventListener('keyup', function (event) {
+    input.onkeyup = function (event) {
       event.preventDefault()
 
       switch (event.keyCode) {
@@ -116,34 +114,29 @@
           break
         }
       }
-    })
+    }
 
-  // 通过地址栏解析
-    // 提取?后面的url的值，并进行解析动作,如果不存在，则不进行解析
-      // 获取网址的url
-      const tmp = location.search
-      // 提取url=后面的网址
-      const href = tmp.substr(tmp.indexOf('?'))
-      const reg = "url=([^&]*)"
-      const result = href.match(reg)
-      if (result != null) {
-        let url = result[0]
-        if (url !== null && url.length > 4) {
-          url =  url.substr(url.indexOf('url=') + 4)
-          // 解析该网址
-          location_parse(url)
-        }
+    // 通过地址栏解析。提取?后面的url的值，并进行解析动作,如果不存在，则不进行解析
+    const reg = "url=([^&]*)"
+    // 获取网址的url
+    const tmp = location.search
+    // 提取url=后面的网址
+    const href = tmp.substr(tmp.indexOf('?'))
+    const result = href.match(reg)
+    if (result != null) {
+      let url = result[0]
+      if (url !== null && url.length > 4) {
+        location_parse(url.substr(url.indexOf('url=') + 4))
       }
+    }
 
-      // 进行url的解析
-      function location_parse(url) {
-        // 拼接成合适的url
-        const tmp = parse_url + url
-        // 播放视频
-        play(tmp)
-        // 把url填入搜索栏中
-        input.value = url
-      }
+    // 进行url的解析
+    function location_parse(url) {
+      play(url)
+      // 把url填入搜索栏中
+      input.value = url
+    }
+  })()
 </script>
 
 </body>
