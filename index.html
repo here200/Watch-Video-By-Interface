@@ -38,6 +38,8 @@
       height: 500px;
       margin: 30px auto;
       background-color: #dddddd;
+      border: none;
+      overflow: hidden;
     }
 
     /* 友链 */
@@ -60,7 +62,7 @@
   <button type="button" onclick="reset()">清空</button>
 </div>
 
-<iframe src="" frameborder="0" id="player" scrolling="no" allowfullscreen allowtransparency></iframe>
+<iframe src="" id="player" allowfullscreen allowtransparency></iframe>
 
 <!-- 友情链接 -->
 <div class="friendLink">
@@ -102,14 +104,12 @@
   (function () {
     // 在选中输入框的情况下，按Enter触发解析动作，按Esc键触发输入内容清空动作。
     input.onkeyup = function (event) {
-      event.preventDefault()
-
-      switch (event.keyCode) {
-        case 13: { // 回车键
+      switch (event.key) {
+        case "Enter": { // 回车键
           input_parse()
           break
         }
-        case 27: { // ESC键
+        case "Escape": { // ESC键
           reset()
           break
         }
