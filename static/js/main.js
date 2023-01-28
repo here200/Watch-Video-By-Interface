@@ -12,7 +12,7 @@ for (let index in routes) {
   liEl.onclick = function() {
     defaultRoute = index
     routeTitleEl.textContent = routes[defaultRoute].name
-    parseURL()
+    play(enterURL)
     localStorage.setItem('default', defaultRoute)
   }
 }
@@ -36,6 +36,8 @@ const playerEl = document.querySelector('.player')
 const clickEl = document.querySelector('.click')
 const clearEl = document.querySelector('.clear')
 
+let enterURL = ''
+
 // 绑定按钮事件
 clickEl.onclick = parseURL
 clearEl.onclick = reset
@@ -46,7 +48,8 @@ function play(url) {
 
 // 当点击播放时
 function parseURL() {
-  play(searchEl.value)
+  enterURL = searchEl.value
+  play(enterURL)
 }
 
 // 当点击清空时
@@ -75,6 +78,7 @@ const result = queryString.match(regex)
 const url = result ? result[1] : null
  
 if (url) {
+  enterURL = url
   play(url)
   searchEl.value = url
 }
