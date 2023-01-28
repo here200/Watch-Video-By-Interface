@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>VIP视频解析</title>
+  <base target="_blank">
+  <style>
+    /* 设置整个网页的背景颜色 */
+    body {
+      background-color: #505050;
+      font-size: 14px;
+    }
+
+    /* 设置搜索框，让其垂直居中 */
+    .search {
+      margin-top: 50px;
+      text-align: center;
+    }
+    .search input {
+      width: 666px;
+      height: 30px;
+
+      outline: none;
+      font-size: 16px;
+    }
+    .search button {
+      width: 50px;
+      height: 30px;
+
+      border-radius: 5px;
+      vertical-align: center;
+      cursor: pointer;
+      outline: none;
+    }
+
+    /* 设置播放器的宽高和背景色 */
+    iframe {
+      display: block;
+      width: 1000px;
+      height: 500px;
+      margin: 30px auto;
+      
+      background-color: #dddddd;
+      border: none;
+      overflow: hidden;
+    }
+
+    /* 友链 */
+    .friendLink {
+      text-align: center;
+      color: #ddd;
+    }
+    .friendLink a {
+      color: #ddd;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+<!--搜索栏-->
+<div class="search">
+  <input type="text" id="text" autofocus>
+  <button type="button" onclick="input_parse()">播放</button>
+  <button type="button" onclick="reset()">清空</button>
+</div>
+
+<iframe src="" id="player" allowfullscreen allowtransparency></iframe>
+
+<!-- 友情链接 -->
+<div class="friendLink">
+  友链：
+  <a href="https://here200.github.io/">Here200's Blog</a>
+  <a href="http://www.gddyu.com/">够低调解析</a>
+  <a href="https://rebozj.com/">热播之家</a>
+</div>
+
+<script>
+  /*
+  *  BL解析： https://svip.bljiex.cc/?v=
+  *  云解析： https://jx.iztyy.com/svip/?url=
+  *   MAQQ:  https://player.maqq.cn/?url=
+  **/
+
+  // 接口
+  let parse_url = 'https://svip.bljiex.cc/?v='
+
+  // 获取输入框对象
+  const input = document.getElementById("text")
+  // 获取iframe对象
+  const player = document.getElementById('player')
+
+  function play(url) {
+    player.src = parse_url + url
+  }
+
+  // 当点击播放时
+  function input_parse() {
+    play(input.value)
+  }
+
+  // 当点击清空时
+  function reset() {
+    input.value = ''
+  }
+
+  (function () {
+    // 在选中输入框的情况下，按Enter触发解析动作，按Esc键触发输入内容清空动作。
+    input.onkeyup = function (event) {
+      switch (event.key) {
+        case "Enter": { // 回车键
+          input_parse()
+          break
+        }
+        case "Escape": { // ESC键
+          reset()
+          break
+        }
+      }
+    }
+
+    // 通过地址栏解析。提取?后面的url的值，并进行解析动作,如果不存在，则不进行解析
+    const reg = "url=([^&]*)"
+    // 获取网址的url
+    const tmp = location.search
+    // 提取url=后面的网址
+    const href = tmp.substr(tmp.indexOf('?'))
+    const result = href.match(reg)
+    if (result != null) {
+      let url = result[0]
+      if (url !== null && url.length > 4) {
+        location_parse(url.substr(url.indexOf('url=') + 4))
+      }
+    }
+
+    // 进行url的解析
+    function location_parse(url) {
+      play(url)
+      // 把url填入搜索栏中
+      input.value = url
+    }
+  })()
+</script>
+
+</body>
+</html>
