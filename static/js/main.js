@@ -12,6 +12,12 @@ for (let index in routes) {
   liEl.onclick = function() {
     defaultRoute = index
     routeTitleEl.textContent = routes[defaultRoute].name
+
+    // 如果搜索框存在内容，优先使用搜索框的内容。否则，使用缓存的内容
+    if (searchEl.value) {
+      enterURL = searchEl.value
+    }
+
     play(enterURL)
     localStorage.setItem('default', defaultRoute)
   }
