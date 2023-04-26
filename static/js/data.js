@@ -7,6 +7,6 @@ const routes = [
 ]
 
 const friends = [
-  {name: 'Here200\'s Blog', url: 'https://here200.github.io/'},
+  {name: 'Here200\'s Bookmark', url: 'https://here200.github.io/Bookmark/'},
   {name: '热播之家', url: 'https://rebozj.com/'},
 ]
