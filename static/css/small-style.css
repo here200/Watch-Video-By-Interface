@@ -1,0 +1,97 @@
+body {
+  font-size: 25px;
+}
+
+/* 导航条 */
+.nav {
+  display: flex;
+  justify-content: center;
+  height: 74px;
+  margin-top: 5vh;
+}
+
+/* 导航条-播放列表 */
+.nav .route {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 150px;
+
+  background-color: #ddd;
+}
+
+.nav .route .title {
+  cursor: pointer;
+}
+
+.nav .route:hover .list {
+  display: block;
+}
+
+.route .list {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 74px;
+
+  text-align: center;
+  background-color: #0d0;
+}
+
+.route .list li {
+  height: 40px;
+  line-height: 40px;
+  cursor: pointer;
+}
+
+.route .list li:hover {
+  background-color: #ff0;
+}
+
+/* 导航条-输入框 */
+.nav .search {
+  width: 50%;
+  margin: 0 5px;
+
+  outline: none;
+  font-size: 22px;
+}
+
+/* 导航条-按钮 */
+.nav button {
+  width: 10%;
+
+  border-radius: 20px;
+  cursor: pointer;
+  outline: none;
+  font-size: 25px;
+}
+
+.nav .clear {
+  margin-left: 5px;
+}
+
+/* 播放器 */
+.player {
+  display: block;
+  margin: 20px auto;
+  width: 96%;
+  height: 60vh;
+  
+  background-color: #ddd;
+  border: none;
+  overflow: hidden;
+}
+
+/* 友链 */
+.friendLink {
+  text-align: center;
+  color: #ddd;
+}
+.friendLink a {
+  margin-right: 5px;
+  
+  color: #ddd;
+}
