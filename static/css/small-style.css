@@ -42,8 +42,10 @@ body {
 
 .route .list li {
   height: 40px;
+
   line-height: 40px;
   cursor: pointer;
+  font-size: 24px;
 }
 
 .route .list li:hover {
@@ -77,7 +79,7 @@ body {
 .player {
   display: block;
   margin: 20px auto;
-  width: 96%;
+  width: 94%;
   height: 60vh;
   
   background-color: #ddd;
