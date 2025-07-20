@@ -1,7 +1,6 @@
 const routes = [
-  {name: 'BL解析', url: 'https://svip.bljiex.cc/?v='}, 
+  {name: 'M1907解析', url: 'https://z1.m1907.top/?jx='}, 
   {name: '虾米解析', url: 'https://jx.xmflv.com/?url='},
-  {name: 'JSON解析', url: 'https://jx.jsonplayer.com/player/?url='},
   {name: '影猫の仓库 ', url: 'https://ymck.pro/search.html?wd='}, 
 ]
 
